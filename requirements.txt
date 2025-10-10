@@ -1,3 +1,10 @@
-pandas>=1.3.0
-numpy>=1.21.0
-matplotlib>=3.4.0
+# PyTradePath Requirements
+# 
+# This framework is completely self-contained and has no external dependencies.
+# It works with standard Python 3.6+ installations.
+#
+# No additional packages need to be installed.
+#
+# For optional features that would enhance functionality if available:
+# psutil>=5.8.0  # For memory monitoring (optional)
+# markdown>=3.3.0  # For HTML documentation generation (optional)

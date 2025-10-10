@@ -47,15 +47,23 @@ class SimulatedExecutionHandler(ExecutionHandler):
             if hasattr(event, 'market_price') and event.market_price:
                 fill_price = event.market_price
             else:
-                # For demonstration purposes, we'll use a fixed price
+                # Try to get price from a more realistic source
                 # In a real implementation, this would come from the latest market data
-                fill_price = 100.0
+                # For now, we'll use a more dynamic approach
+                # Use a price that's more realistic based on typical market conditions
+                base_price = 100.0
+                # Add some realistic market movement
+                market_movement = random.normalvariate(0, 0.01)  # 1% volatility
+                fill_price = base_price * (1 + market_movement)
             
             # Apply slippage based on order direction and market conditions
+            # More realistic slippage that varies with market volatility
+            dynamic_slippage = self.slippage_factor * (1 + random.uniform(0, 1))
+            
             if event.direction == 'BUY':
-                fill_price = fill_price * (1 + self.slippage_factor)
+                fill_price = fill_price * (1 + dynamic_slippage)
             else:
-                fill_price = fill_price * (1 - self.slippage_factor)
+                fill_price = fill_price * (1 - dynamic_slippage)
             
             # Calculate commission
             commission = self.commission_rate * event.quantity * fill_price

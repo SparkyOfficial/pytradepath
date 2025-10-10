@@ -752,23 +752,45 @@ class DataSampler:
             if not timestamp:
                 continue
                 
-            # For simplicity, assume timestamp is in format YYYY-MM-DD
-            # In a real implementation, you would parse the actual timestamp
+            # Parse actual timestamp for more accurate grouping
+            try:
+                # Try to parse the timestamp - handles multiple formats
+                from datetime import datetime
+                if ' ' in timestamp:
+                    # Format: YYYY-MM-DD HH:MM:SS
+                    parsed_time = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
+                else:
+                    # Format: YYYY-MM-DD
+                    parsed_time = datetime.strptime(timestamp, "%Y-%m-%d")
+            except ValueError:
+                # Fallback to simple string comparison
+                parsed_time = timestamp
+            
             if not current_group:
                 current_group.append(row)
-                last_timestamp = timestamp
+                last_timestamp = parsed_time
             else:
                 # Add to current group
                 current_group.append(row)
                 
-                # Check if we should finalize this group
-                # This is a simplified implementation - in practice you would
-                # calculate the actual time difference
-                if len(current_group) >= target_freq // 10:  # Simplified grouping
-                    # Create aggregated bar
-                    resampled_row = self._aggregate_group(current_group)
-                    resampled_data.append(resampled_row)
-                    current_group = []
+                # Check if we should finalize this group based on time difference
+                if isinstance(parsed_time, datetime) and isinstance(last_timestamp, datetime):
+                    # Calculate actual time difference in minutes
+                    time_diff = (parsed_time - last_timestamp).total_seconds() / 60
+                    if time_diff >= target_freq:
+                        # Create aggregated bar
+                        resampled_row = self._aggregate_group(current_group)
+                        resampled_data.append(resampled_row)
+                        current_group = []
+                else:
+                    # Fallback to simplified grouping approach
+                    if len(current_group) >= target_freq // 10:  # Simplified grouping
+                        # Create aggregated bar
+                        resampled_row = self._aggregate_group(current_group)
+                        resampled_data.append(resampled_row)
+                        current_group = []
+                
+                last_timestamp = parsed_time
         
         # Add final group if it exists
         if current_group:
