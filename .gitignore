@@ -161,6 +161,7 @@ cython_debug/
 
 # Cache directories
 .cache/
+**/__pycache__/
 
 # Data files
 data/*.csv
@@ -193,3 +194,12 @@ exported_data/
 
 # Cache files
 cache/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/*.so
+**/*.dll
+
+# Specific files to ignore
+logs/*.log
+*.pkl
