@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pytradepath"
+description = "A comprehensive framework for backtesting and algorithmic trading"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Sparky", email = "sparkyofficialmail@proton.me"},
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.6"
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+]
+optional = [
+    "psutil>=5.8.0",  # For memory monitoring
+    "markdown>=3.3.0",  # For HTML documentation generation
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/pytradepath"
+Repository = "https://github.com/yourusername/pytradepath"
+Documentation = "https://github.com/yourusername/pytradepath/blob/main/README.md"
+
+[project.scripts]
+pytradepath = "pytradepath.cli:main"
+
+[tool.setuptools_scm]
+version_scheme = "guess-next-dev"
+local_scheme = "dirty-tag"

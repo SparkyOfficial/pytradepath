@@ -1,0 +1,29 @@
+include README.md
+include LICENSE
+include requirements.txt
+include PERSONAL_GUIDE.md
+include USER_GUIDE.md
+include QUICK_START.md
+include FEATURES_SUMMARY.md
+include PROGRAM_SUMMARY.md
+
+recursive-include pytradepath *.py
+recursive-include core *.py
+recursive-include strategies *.py
+recursive-include utils *.py
+recursive-include docs *.md
+recursive-include examples *.py
+
+global-exclude __pycache__
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude *~
+global-exclude .DS_Store
+global-exclude Thumbs.db
+global-exclude .git
+global-exclude .gitignore
+global-exclude cache
+global-exclude logs
+global-exclude exported_data
+global-exclude temp
+global-exclude tmp

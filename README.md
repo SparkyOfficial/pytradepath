@@ -1,174 +1,191 @@
 # PyTradePath - Algorithmic Trading Framework
 
-PyTradePath is a comprehensive, self-contained framework for backtesting and algorithmic trading. It provides all the necessary components to develop, test, and analyze trading strategies without any external dependencies.
+PyTradePath is a comprehensive, event-driven framework for backtesting and algorithmic trading. It provides a complete ecosystem for developing, testing, and deploying trading strategies with realistic market simulation.
 
 ## Features
 
-- **Event-Driven Architecture**: Prevents lookahead bias and ensures realistic backtesting
-- **Multiple Data Sources**: Support for CSV, database, and API data sources
-- **Strategy Development**: Clean API for developing custom trading strategies
-- **Risk Management**: Comprehensive risk controls including position sizing and stop-losses
-- **Machine Learning**: Integrated ML capabilities for predictive modeling
-- **Parameter Optimization**: Multiple optimization algorithms including genetic algorithms and Bayesian optimization
-- **Performance Analysis**: Detailed performance metrics and risk analysis
-- **Backtesting Engine**: Complete backtesting system with realistic market simulation
-- **Portfolio Management**: Advanced portfolio tracking and management
-- **Execution Simulation**: Realistic order execution with commissions and slippage
-
-## Architecture
-
-The framework follows a modular architecture with the following core components:
-
-```
-pytradepath/
-├── core/              # Core framework components
-├── strategies/        # Trading strategies
-├── utils/             # Utility functions
-├── data/              # Sample data
-├── tests/             # Unit tests
-├── examples/          # Example implementations
-└── docs/              # Documentation
-```
-
-## Core Components
-
-### Event System
-- MarketEvent, SignalEvent, OrderEvent, FillEvent
-
-### Data Management
-- DataHandler, HistoricCSVDataHandler
-- CSVDataProvider, DatabaseDataProvider, APIBasedDataProvider
-
-### Strategy Development
-- Strategy base class and multiple example strategies
-- BuyAndHoldStrategy, MovingAverageCrossoverStrategy, RSIStrategy
-- AdvancedMLStrategy with machine learning capabilities
-
-### Portfolio Management
-- Portfolio base class and implementations
-- NaivePortfolio, AdvancedPortfolio
-
-### Execution Handling
-- ExecutionHandler, SimulatedExecutionHandler
-
-### Risk Management
-- RiskManager with multiple implementations
-- Position sizing algorithms (Fixed, Kelly Criterion, Volatility)
-
-### Machine Learning
-- SimpleLinearRegression, SimpleDecisionTree
-- FeatureEngineer for creating trading features
-
-### Optimization
-- ParameterOptimizer with multiple algorithms
-- WalkForwardOptimizer, MonteCarloOptimizer, BayesianOptimizer
-
-### Analytics
-- StatisticalAnalyzer, RiskAnalyzer, TimeSeriesAnalyzer
-- Performance metrics calculation
+- **Event-Driven Architecture**: Prevents lookahead bias with proper event loop implementation
+- **Realistic Market Simulation**: Models commissions, slippage, and liquidity constraints
+- **Extensible Strategy Framework**: Clean API for developing custom trading strategies
+- **Risk Management**: Position sizing, stop-losses, and portfolio-level controls
+- **Performance Analysis**: Comprehensive metrics including Sharpe ratio, drawdowns, and PnL
+- **Parameter Optimization**: Grid search, random search, and genetic algorithms
+- **Machine Learning Integration**: Feature engineering and model deployment capabilities
+- **Live Trading Simulation**: Paper trading with real-time data handling
+- **Pure Python Implementation**: No external dependencies for easy deployment
+- **Comprehensive Documentation**: Extensive guides and examples
 
 ## Installation
 
-The framework is completely self-contained with no external dependencies. All you need is Python 3.6+.
+### From Release Package
+1. Download the `pytradepath-release.zip` file from the latest release
+2. Extract it to your desired location
+3. Navigate to the extracted directory
 
+### Direct Usage
+Since PyTradePath is a pure Python framework with no external dependencies, you can run it directly:
 ```bash
-git clone https://github.com/yourusername/pytradepath.git
-cd pytradepath
+cd pytradepath-directory
+python examples/simple_backtest.py
 ```
 
-## Usage
+## Quick Start
 
-### Running Examples
+### Using the CLI
+PyTradePath comes with a command-line interface for common tasks:
 
 ```bash
-# Simple moving average crossover backtest
-python examples/mac_backtest.py
+# Show help
+python -m pytradepath.cli --help
 
-# Comprehensive framework demonstration
-python examples/full_framework_demo.py
+# Run demonstrations
+python -m pytradepath.cli demo simple    # Simple moving average crossover
+python -m pytradepath.cli demo full      # Full framework demonstration
+python -m pytradepath.cli demo mac       # Moving Average Crossover strategy
+python -m pytradepath.cli demo ml        # Machine Learning strategy
+python -m pytradepath.cli demo momentum  # Momentum strategy
 
-# Advanced ML strategy demonstration
-python examples/advanced_strategy_demo.py
+# Run tests
+python -m pytradepath.cli test all       # Run all tests
+python -m pytradepath.cli test event     # Run event system tests
+python -m pytradepath.cli test advanced  # Run advanced components tests
+
+# Create a new strategy template
+python -m pytradepath.cli create MyStrategy
 ```
 
-### Running Tests
-
+### Running Examples Directly
+You can also run examples directly:
 ```bash
-# Run unit tests
+python examples/simple_backtest.py           # Simple backtest example
+python examples/full_framework_demo.py       # Full framework demonstration
+python examples/mac_backtest.py              # Moving Average Crossover backtest
+python examples/momentum_strategy_demo.py    # Momentum strategy example
+python examples/advanced_strategy_demo.py    # Advanced ML strategy example
+```
+
+## Framework Structure
+
+The framework is organized into the following modules:
+
+- **[core/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/core/)** - Core components (events, data handlers, portfolio, execution)
+- **[strategies/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/strategies/)** - Trading strategies
+- **[risk/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/risk/)** - Risk management components
+- **[optimization/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/optimization/)** - Parameter optimization tools
+- **[ml/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/ml/)** - Machine learning components
+- **[live/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/live/)** - Live trading simulation
+- **[analytics/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/analytics/)** - Performance analysis and reporting
+- **[utils/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/utils/)** - Utility functions
+- **[data/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/data/)** - Data management
+- **[config/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/config/)** - Configuration management
+- **[logging/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/logging/)** - Logging system
+- **[tests/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/tests/)** - Unit tests
+- **[docs/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/docs/)** - Documentation
+- **[examples/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/examples/)** - Example scripts
+
+## Creating Custom Strategies
+
+The easiest way to create a new strategy is using the CLI:
+```bash
+python -m pytradepath.cli create MyNewStrategy
+```
+
+This creates a template file in `strategies/mynewstrategy_strategy.py` that you can customize.
+
+## Performance Analysis
+
+The framework provides comprehensive performance analysis tools that calculate key metrics:
+- Total returns and annualized returns
+- Sharpe ratio and Sortino ratio
+- Maximum drawdown and drawdown duration
+- Volatility and Value at Risk (VaR)
+- Trade statistics and exposure analysis
+
+## Advanced Features
+
+### Risk Management
+- Position sizing algorithms
+- Stop-loss and take-profit orders
+- Trailing stops
+- Portfolio-level risk controls
+
+### Parameter Optimization
+- Grid search optimization
+- Random search algorithms
+- Genetic algorithm optimization
+- Walk-forward analysis
+
+### Machine Learning Integration
+- Feature engineering pipelines
+- Model training and evaluation
+- Prediction integration with trading strategies
+- Ensemble methods and stacking
+
+### Live Trading Simulation
+- Real-time data handling
+- Order execution simulation
+- Position tracking and monitoring
+- Risk monitoring and alerts
+
+## Documentation
+
+Detailed documentation is available in the [docs/](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/docs/) directory, including:
+- API reference
+- Strategy development guide
+- Risk management best practices
+- Performance analysis techniques
+- Live trading setup instructions
+
+For personal guidance on how to work with the library, see [PERSONAL_WORKING_GUIDE.md](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/PERSONAL_WORKING_GUIDE.md).
+
+## Release Package
+
+A ready-to-use release package is available as `pytradepath-release.zip`. This package contains:
+- All source code
+- Examples and demos
+- Documentation
+- Tests
+- CLI tools
+- Configuration files
+
+To create a new release package, run:
+```bash
+# Using the batch script (Windows)
+make_release.bat
+
+# Using the shell script (Unix/Linux/Mac)
+./make_release.sh
+
+# Using Python directly
+python release.py --package-only
+```
+
+## Testing
+
+Run the test suite to verify everything is working correctly:
+```bash
+python -m pytradepath.cli test all
+```
+
+Or run tests directly:
+```bash
 python tests/test_event_system.py
 python tests/test_advanced_components.py
 ```
 
-## Example Strategies
-
-1. **Buy and Hold**: Simple buy-and-hold strategy
-2. **Moving Average Crossover**: Dual moving average crossover strategy
-3. **RSI Strategy**: RSI mean-reversion strategy
-4. **Advanced ML Strategy**: Machine learning-based strategy with technical indicators
-
-## Performance Metrics
-
-The framework calculates comprehensive performance metrics:
-- Total Return
-- CAGR (Compound Annual Growth Rate)
-- Sharpe Ratio
-- Sortino Ratio
-- Calmar Ratio
-- Maximum Drawdown
-- Win Rate
-- Risk-Adjusted Returns
-
-## Risk Management
-
-The framework includes robust risk management features:
-- Position sizing algorithms
-- Stop-loss management
-- Drawdown controls
-- Position limits
-- Sector exposure limits
-- Liquidity risk management
-
-## Machine Learning
-
-Integrated machine learning capabilities:
-- Linear regression models
-- Decision tree classifiers
-- Feature engineering
-- Model evaluation
-- Trading performance evaluation
-
-## Optimization
-
-Multiple parameter optimization algorithms:
-- Grid search
-- Random search
-- Genetic algorithms
-- Bayesian optimization
-- Walk-forward optimization
-- Monte Carlo optimization
-
-## Data Management
-
-Flexible data management system:
-- CSV data support
-- Database support (SQLite)
-- API data sources
-- Data validation
-- Data cleaning
-- Data transformation
-
-## Documentation
-
-See the [documentation](docs/framework_documentation.md) for detailed information about the framework components and usage.
-
 ## Contributing
 
-Contributions are welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
+Contributions are welcome! Please follow these steps:
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a pull request
 
 ## License
 
-This framework is provided for educational and research purposes.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/LICENSE) file for details.
 
-## Acknowledgments
+## Support
 
-This framework was developed as a comprehensive solution for algorithmic trading research and education.
+For support, please open an issue on the GitHub repository or contact the development team.
