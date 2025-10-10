@@ -42,8 +42,20 @@ class SimulatedExecutionHandler(ExecutionHandler):
         i.e. without any latency, slippage or fill ratio problems.
         """
         if event.type.name == 'ORDER':
-            # For simplicity, we'll assume a fixed price
-            fill_price = 100.0
+            # Get market price from the event or use a default
+            # In a more sophisticated implementation, this would come from market data
+            if hasattr(event, 'market_price') and event.market_price:
+                fill_price = event.market_price
+            else:
+                # For demonstration purposes, we'll use a fixed price
+                # In a real implementation, this would come from the latest market data
+                fill_price = 100.0
+            
+            # Apply slippage based on order direction and market conditions
+            if event.direction == 'BUY':
+                fill_price = fill_price * (1 + self.slippage_factor)
+            else:
+                fill_price = fill_price * (1 - self.slippage_factor)
             
             # Calculate commission
             commission = self.commission_rate * event.quantity * fill_price

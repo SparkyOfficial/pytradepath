@@ -4,3 +4,27 @@
 2025-10-10 18:41:11,266 - pytradepath - WARNING - [2025-10-10T18:41:11.266100] This is a warning message
 2025-10-10 18:41:11,268 - pytradepath - INFO - [2025-10-10T18:41:11.267097] EVENT: FRAMEWORK_DEMO | Context: {"status": "running", "components": ["backtest", "optimization", "risk_analysis"]}
 2025-10-10 18:41:11,268 - pytradepath - INFO - [2025-10-10T18:41:11.267097] EVENT: FRAMEWORK_DEMO | Context: {"status": "running", "components": ["backtest", "optimization", "risk_analysis"]}
+2025-10-10 19:09:09,472 - pytradepath - INFO - [2025-10-10T19:09:09.472242] Full framework demonstration started
+2025-10-10 19:09:09,472 - pytradepath - INFO - [2025-10-10T19:09:09.472242] Full framework demonstration started
+2025-10-10 19:09:09,472 - pytradepath - WARNING - [2025-10-10T19:09:09.472242] This is a warning message
+2025-10-10 19:09:09,472 - pytradepath - WARNING - [2025-10-10T19:09:09.472242] This is a warning message
+2025-10-10 19:09:09,473 - pytradepath - INFO - [2025-10-10T19:09:09.472242] EVENT: FRAMEWORK_DEMO | Context: {"status": "running", "components": ["backtest", "optimization", "risk_analysis"]}
+2025-10-10 19:09:09,473 - pytradepath - INFO - [2025-10-10T19:09:09.472242] EVENT: FRAMEWORK_DEMO | Context: {"status": "running", "components": ["backtest", "optimization", "risk_analysis"]}
+2025-10-10 19:14:58,626 - pytradepath - INFO - [2025-10-10T19:14:58.626840] Full framework demonstration started
+2025-10-10 19:14:58,626 - pytradepath - INFO - [2025-10-10T19:14:58.626840] Full framework demonstration started
+2025-10-10 19:14:58,627 - pytradepath - WARNING - [2025-10-10T19:14:58.627834] This is a warning message
+2025-10-10 19:14:58,627 - pytradepath - WARNING - [2025-10-10T19:14:58.627834] This is a warning message
+2025-10-10 19:14:58,627 - pytradepath - INFO - [2025-10-10T19:14:58.627834] EVENT: FRAMEWORK_DEMO | Context: {"status": "running", "components": ["backtest", "optimization", "risk_analysis"]}
+2025-10-10 19:14:58,627 - pytradepath - INFO - [2025-10-10T19:14:58.627834] EVENT: FRAMEWORK_DEMO | Context: {"status": "running", "components": ["backtest", "optimization", "risk_analysis"]}
+2025-10-10 19:20:23,650 - pytradepath - INFO - [2025-10-10T19:20:23.650951] Full framework demonstration started
+2025-10-10 19:20:23,650 - pytradepath - INFO - [2025-10-10T19:20:23.650951] Full framework demonstration started
+2025-10-10 19:20:23,651 - pytradepath - WARNING - [2025-10-10T19:20:23.651949] This is a warning message
+2025-10-10 19:20:23,651 - pytradepath - WARNING - [2025-10-10T19:20:23.651949] This is a warning message
+2025-10-10 19:20:23,651 - pytradepath - INFO - [2025-10-10T19:20:23.651949] EVENT: FRAMEWORK_DEMO | Context: {"status": "running", "components": ["backtest", "optimization", "risk_analysis"]}
+2025-10-10 19:20:23,651 - pytradepath - INFO - [2025-10-10T19:20:23.651949] EVENT: FRAMEWORK_DEMO | Context: {"status": "running", "components": ["backtest", "optimization", "risk_analysis"]}
+2025-10-10 19:28:48,476 - pytradepath - INFO - [2025-10-10T19:28:48.476807] Full framework demonstration started
+2025-10-10 19:28:48,476 - pytradepath - INFO - [2025-10-10T19:28:48.476807] Full framework demonstration started
+2025-10-10 19:28:48,477 - pytradepath - WARNING - [2025-10-10T19:28:48.476807] This is a warning message
+2025-10-10 19:28:48,477 - pytradepath - WARNING - [2025-10-10T19:28:48.476807] This is a warning message
+2025-10-10 19:28:48,477 - pytradepath - INFO - [2025-10-10T19:28:48.477803] EVENT: FRAMEWORK_DEMO | Context: {"status": "running", "components": ["backtest", "optimization", "risk_analysis"]}
+2025-10-10 19:28:48,477 - pytradepath - INFO - [2025-10-10T19:28:48.477803] EVENT: FRAMEWORK_DEMO | Context: {"status": "running", "components": ["backtest", "optimization", "risk_analysis"]}

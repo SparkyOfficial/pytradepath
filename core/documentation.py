@@ -157,7 +157,7 @@ class DocumentationGenerator:
             content += f"{step['description']}\n\n"
             
             if 'code' in step:
-                content += "```python\n"
+                content += "``python\n"
                 content += f"{step['code']}\n"
                 content += "```\n\n"
         
@@ -182,7 +182,7 @@ class DocumentationGenerator:
         content += f"{example.description}\n\n"
         
         content += f"## Code ({example.language})\n\n"
-        content += f"```{example.language}\n"
+        content += f"``{example.language}\n"
         content += f"{example.code}\n"
         content += "```\n\n"
         
@@ -228,9 +228,46 @@ class DocumentationGenerator:
 
     def _save_html(self):
         """Save documentation as HTML files."""
-        # This would convert Markdown to HTML
-        warnings.warn("HTML documentation generation is not fully implemented")
+        # Convert Markdown to HTML
+        try:
+            import markdown
+            html_content = "<!DOCTYPE html>\n<html>\n<head>\n<title>PyTradePath Documentation</title>\n"
+            html_content += "<style>body { font-family: Arial, sans-serif; margin: 40px; }</style>\n"
+            html_content += "</head>\n<body>\n"
         
+            for section in self.sections:
+                # Convert markdown to HTML
+                html_section = markdown.markdown(f"# {section.title}\n\n{section.content}")
+                html_content += html_section + "\n<hr>\n"
+        
+            html_content += "</body>\n</html>"
+        
+            filepath = os.path.join(self.output_directory, "documentation.html")
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(html_content)
+        
+            print(f"Saved {filepath}")
+        except ImportError:
+            # Fallback to simple HTML generation without markdown
+            html_content = "<!DOCTYPE html>\n<html>\n<head>\n<title>PyTradePath Documentation</title>\n"
+            html_content += "<style>body { font-family: Arial, sans-serif; margin: 40px; }</style>\n"
+            html_content += "</head>\n<body>\n"
+        
+            for section in self.sections:
+                html_content += f"<h1>{section.title}</h1>\n"
+                # Simple conversion of markdown to HTML
+                content = section.content.replace('\n\n', '</p>\n<p>').replace('\n', '<br>\n')
+                content = f"<p>{content}</p>"
+                html_content += content + "\n<hr>\n"
+        
+            html_content += "</body>\n</html>"
+        
+            filepath = os.path.join(self.output_directory, "documentation.html")
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(html_content)
+        
+            print(f"Saved {filepath} (without markdown formatting)")
+
     def _save_json(self):
         """Save documentation as JSON files."""
         # Save sections as JSON

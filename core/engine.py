@@ -115,7 +115,8 @@ class BacktestingEngine:
             # Update the market bars
             if self.data_handler.update_bars():
                 # Handle market event
-                market_event = MarketEvent("SYMBOL", self.data_handler.latest_symbol_data)
+                # Fix: Pass the latest symbol data correctly
+                market_event = MarketEvent("MARKET_DATA", self.data_handler.latest_symbol_data)
                 self.events.put(market_event)
             else:
                 self.continue_backtest = False

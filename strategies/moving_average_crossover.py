@@ -73,3 +73,7 @@ class MovingAverageCrossoverStrategy(Strategy):
                                 signal = SignalEvent(symbol, 'SELL', 1.0)
                                 self.events_queue.put(signal)
                                 self.bought[symbol] = 'OUT'
+                            elif self.bought[symbol] == 'SHORT':
+                                signal = SignalEvent(symbol, 'EXIT', 1.0)
+                                self.events_queue.put(signal)
+                                self.bought[symbol] = 'OUT'

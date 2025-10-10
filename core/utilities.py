@@ -590,9 +590,37 @@ class ConfigurationManager(metaclass=SingletonMeta):
                     if filepath.endswith('.json'):
                         self.config.update(json.load(f))
                     else:
-                        # Assume it's a Python file
-                        # This is a simplified implementation
-                        warnings.warn("Python config file loading is not fully implemented")
+                        # Parse Python config file
+                        content = f.read()
+                        # Simple parsing for basic Python config files
+                        # This handles simple assignments like: variable = value
+                        lines = content.split('\n')
+                        for line in lines:
+                            line = line.strip()
+                            if line and not line.startswith('#') and '=' in line:
+                                key, value = line.split('=', 1)
+                                key = key.strip()
+                                value = value.strip()
+                                
+                                # Try to parse the value
+                                try:
+                                    # Handle strings
+                                    if value.startswith("'") and value.endswith("'"):
+                                        value = value[1:-1]
+                                    elif value.startswith('"') and value.endswith('"'):
+                                        value = value[1:-1]
+                                    # Handle numbers
+                                    elif '.' in value:
+                                        value = float(value)
+                                    elif value.isdigit():
+                                        value = int(value)
+                                    # Handle booleans
+                                    elif value.lower() in ('true', 'false'):
+                                        value = value.lower() == 'true'
+                                except:
+                                    pass  # Keep as string if parsing fails
+                                
+                                self.config[key] = value
             except Exception as e:
                 print(f"Error loading config file {filepath}: {e}")
 
@@ -609,9 +637,14 @@ class ConfigurationManager(metaclass=SingletonMeta):
                     if filepath.endswith('.json'):
                         json.dump(self.config, f, indent=4)
                     else:
-                        # Assume it's a Python file
-                        # This is a simplified implementation
-                        warnings.warn("Python config file saving is not fully implemented")
+                        # Save as Python config file
+                        for key, value in self.config.items():
+                            if isinstance(value, str):
+                                f.write(f"{key} = '{value}'\n")
+                            elif isinstance(value, (int, float, bool)):
+                                f.write(f"{key} = {value}\n")
+                            else:
+                                f.write(f"{key} = {repr(value)}\n")
             except Exception as e:
                 print(f"Error saving config file {filepath}: {e}")
 

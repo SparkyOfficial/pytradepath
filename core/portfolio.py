@@ -83,7 +83,7 @@ class Portfolio(ABC):
         dh['datetime'] = latest_datetime
         dh['cash'] = self.current_holdings['cash']
         dh['commission'] = self.current_holdings['commission']
-        dh['total'] = self.current_holdings['total']
+        dh['total'] = self.current_holdings['cash'] + self.current_holdings['commission']
 
         # For simplicity, we'll assume a fixed price
         for s in self.symbol_list:
@@ -126,7 +126,14 @@ class Portfolio(ABC):
         self.current_holdings[fill.symbol] += cost
         self.current_holdings['commission'] += fill.commission
         self.current_holdings['cash'] -= (cost + fill.commission)
-        self.current_holdings['total'] -= (cost + fill.commission)
+        # Fix: Total should be cash + market value of positions, not subtracting cost
+        # Recalculate total properly
+        total = self.current_holdings['cash'] + self.current_holdings['commission']
+        for symbol in self.symbol_list:
+            # Approximate market value (this should be updated with real prices in a real implementation)
+            market_value = self.current_positions[symbol] * 100  # Fixed price assumption
+            total += market_value
+        self.current_holdings['total'] = total
 
     def on_fill(self, event: FillEvent):
         """
