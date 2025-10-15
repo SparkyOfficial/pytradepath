@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from enum import Enum
-from typing import Any
+from typing import Any, Optional
 import time
 
 
@@ -21,7 +21,7 @@ class Event(ABC):
         self.timestamp = time.time()
 
     @abstractmethod
-    def __str__(self):
+    def __str__(self) -> str:
         pass
 
 
@@ -34,7 +34,7 @@ class MarketEvent(Event):
         self.symbol = symbol
         self.data = data
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"MarketEvent: {self.symbol} at {self.timestamp}"
 
 
@@ -48,7 +48,7 @@ class SignalEvent(Event):
         self.signal_type = signal_type  # 'BUY', 'SELL', 'EXIT'
         self.strength = strength  # Confidence level (0.0 to 1.0)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"SignalEvent: {self.signal_type} {self.symbol} with strength {self.strength}"
 
 
@@ -56,14 +56,15 @@ class OrderEvent(Event):
     """
     Event representing an order to be placed.
     """
-    def __init__(self, symbol: str, order_type: str, quantity: float, direction: str):
+    def __init__(self, symbol: str, order_type: str, quantity: float, direction: str, market_price: Optional[float] = None):
         super().__init__(EventType.ORDER)
         self.symbol = symbol
         self.order_type = order_type  # 'MARKET', 'LIMIT', etc.
         self.quantity = quantity
         self.direction = direction  # 'BUY' or 'SELL'
+        self.market_price = market_price  # Optional market price for order execution
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"OrderEvent: {self.direction} {self.quantity} {self.symbol} ({self.order_type})"
 
 
@@ -81,5 +82,5 @@ class FillEvent(Event):
         self.commission = commission
         self.cost = quantity * fill_price + commission
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"FillEvent: {self.direction} {self.quantity} {self.symbol} at {self.fill_price}"

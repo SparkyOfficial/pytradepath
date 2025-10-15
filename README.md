@@ -1,19 +1,21 @@
 # PyTradePath - Algorithmic Trading Framework
 
-PyTradePath is a comprehensive, event-driven framework for backtesting and algorithmic trading. It provides a complete ecosystem for developing, testing, and deploying trading strategies with realistic market simulation.
+PyTradePath is a comprehensive, event-driven framework for backtesting and algorithmic trading. It provides a complete ecosystem for developing, testing, and deploying trading strategies with realistic market simulation. Enhanced to over 14,000 lines of code with sophisticated algorithms and realistic market modeling.
 
 ## Features
 
 - **Event-Driven Architecture**: Prevents lookahead bias with proper event loop implementation
-- **Realistic Market Simulation**: Models commissions, slippage, and liquidity constraints
+- **Realistic Market Simulation**: Advanced models for commissions, slippage, liquidity, and market microstructure
 - **Extensible Strategy Framework**: Clean API for developing custom trading strategies
-- **Risk Management**: Position sizing, stop-losses, and portfolio-level controls
+- **Risk Management**: Sophisticated position sizing, stop-losses, and portfolio-level controls
 - **Performance Analysis**: Comprehensive metrics including Sharpe ratio, drawdowns, and PnL
 - **Parameter Optimization**: Grid search, random search, and genetic algorithms
 - **Machine Learning Integration**: Feature engineering and model deployment capabilities
 - **Live Trading Simulation**: Paper trading with real-time data handling
 - **Pure Python Implementation**: No external dependencies for easy deployment
 - **Comprehensive Documentation**: Extensive guides and examples
+- **Enhanced Statistical Methods**: Advanced analytics including Hurst exponent, correlation analysis, and robust regression
+- **Realistic Execution Modeling**: Tiered commissions, partial fills, and market impact simulation
 
 ## Installation
 

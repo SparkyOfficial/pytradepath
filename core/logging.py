@@ -671,7 +671,7 @@ class LogAggregator:
 
     def analyze_log_patterns(self, hours: int = 24) -> Dict[str, Any]:
         """
-        Analyze log patterns over a time period.
+        Analyze log patterns over a time period by parsing actual log files.
         
         Parameters:
         hours - Number of hours to analyze
@@ -679,28 +679,133 @@ class LogAggregator:
         Returns:
         Dictionary with analysis results
         """
-        # This is a simplified implementation
-        # In practice, you would parse log files and analyze patterns
+        import os
+        import re
+        from datetime import datetime, timedelta
+        from collections import defaultdict, Counter
+        
+        # Calculate the cutoff time
+        cutoff_time = datetime.now() - timedelta(hours=hours)
+        
+        # Pattern to match log entries
+        log_pattern = re.compile(
+            r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}),\d+ - (\w+) - (.+)'
+        )
+        
+        # Initialize counters
+        total_entries = 0
+        error_count = 0
+        warning_count = 0
+        info_count = 0
+        message_counter = Counter()
+        
+        # Parse log files
+        try:
+            for filename in os.listdir(self.log_directory):
+                if filename.endswith('.log'):
+                    filepath = os.path.join(self.log_directory, filename)
+                    with open(filepath, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            match = log_pattern.match(line.strip())
+                            if match:
+                                timestamp_str, level, message = match.groups()
+                                try:
+                                    timestamp = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
+                                    # Only analyze entries within the time window
+                                    if timestamp >= cutoff_time:
+                                        total_entries += 1
+                                        if level.upper() == 'ERROR':
+                                            error_count += 1
+                                        elif level.upper() == 'WARNING':
+                                            warning_count += 1
+                                        elif level.upper() == 'INFO':
+                                            info_count += 1
+                                        # Count message patterns (first 50 chars for grouping)
+                                        message_key = message[:50].strip()
+                                        message_counter[message_key] += 1
+                                except ValueError:
+                                    # Skip lines with invalid timestamps
+                                    continue
+        except FileNotFoundError:
+            # Directory doesn't exist, return empty results
+            pass
+        except Exception as e:
+            # Handle other errors gracefully
+            pass
+        
+        # Calculate rates
+        error_rate = error_count / total_entries if total_entries > 0 else 0.0
+        warning_rate = warning_count / total_entries if total_entries > 0 else 0.0
+        
+        # Get most common messages
+        most_common_messages = [
+            {"message": msg, "count": count} 
+            for msg, count in message_counter.most_common(10)
+        ]
+        
         return {
             "time_period_hours": hours,
-            "total_log_entries": 0,
-            "error_rate": 0.0,
-            "warning_rate": 0.0,
-            "most_common_messages": []
+            "total_log_entries": total_entries,
+            "error_rate": error_rate,
+            "warning_rate": warning_rate,
+            "error_count": error_count,
+            "warning_count": warning_count,
+            "info_count": info_count,
+            "most_common_messages": most_common_messages
         }
 
     def generate_log_summary(self) -> Dict[str, Any]:
         """
-        Generate summary of log data.
+        Generate summary of log data by analyzing all available log files.
         
         Returns:
         Dictionary with log summary
         """
-        # This is a simplified implementation
+        import os
+        import re
+        from collections import defaultdict
+        
+        # Initialize counters
+        log_files_analyzed = 0
+        total_entries = 0
+        error_count = 0
+        warning_count = 0
+        info_count = 0
+        
+        # Pattern to match log entries
+        log_pattern = re.compile(
+            r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d+ - (\w+) - (.+)'
+        )
+        
+        # Parse log files
+        try:
+            for filename in os.listdir(self.log_directory):
+                if filename.endswith('.log'):
+                    log_files_analyzed += 1
+                    filepath = os.path.join(self.log_directory, filename)
+                    with open(filepath, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            match = log_pattern.match(line.strip())
+                            if match:
+                                level, _ = match.groups()
+                                total_entries += 1
+                                if level.upper() == 'ERROR':
+                                    error_count += 1
+                                elif level.upper() == 'WARNING':
+                                    warning_count += 1
+                                elif level.upper() == 'INFO':
+                                    info_count += 1
+        except FileNotFoundError:
+            # Directory doesn't exist, return empty results
+            pass
+        except Exception as e:
+            # Handle other errors gracefully
+            pass
+        
         return {
-            "log_files_analyzed": 0,
-            "total_entries": 0,
-            "error_count": 0,
-            "warning_count": 0,
-            "info_count": 0
+            "log_files_analyzed": log_files_analyzed,
+            "total_entries": total_entries,
+            "error_count": error_count,
+            "warning_count": warning_count,
+            "info_count": info_count
         }

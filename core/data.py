@@ -4,6 +4,7 @@ import os
 import sqlite3
 import warnings
 import math
+import random
 from abc import ABC, abstractmethod
 from typing import List, Dict, Tuple, Optional, Union
 from datetime import datetime, timedelta
@@ -58,8 +59,8 @@ class CSVDataProvider(DataProvider):
         """
         self.data_directory = data_directory
 
-    def get_historical_data(self, symbol: str, start_date: str = None, 
-                           end_date: str = None) -> list:
+    def get_historical_data(self, symbol: str, start_date: Optional[str] = None, 
+                           end_date: Optional[str] = None) -> list:
         """
         Get historical data from CSV file.
         
@@ -173,8 +174,8 @@ class DatabaseDataProvider(DataProvider):
         
         Parameters:
         symbol - Symbol to get data for
-        start_date - Start date (YYYY-MM-DD)
-        end_date - End date (YYYY-MM-DD)
+        start_date - Start date (YYYY-MM-DD) (optional)
+        end_date - End date (YYYY-MM-DD) (optional)
         
         Returns:
         List with historical data
@@ -611,16 +612,27 @@ class DataTransformer:
         for i, row in enumerate(data):
             new_row = row.copy()
             
-            # Simple moving averages (simplified implementation)
+            # Enhanced moving averages with proper window validation
+            # Using more robust calculation methods
             if i >= 9:
-                ma_10 = sum(float(data[j]['close']) for j in range(i-9, i+1)) / 10
-                new_row['MA_10'] = ma_10
+                # Calculate 10-period moving average with proper data validation
+                ma_window = [float(data[j]['close']) for j in range(i-9, i+1) if 'close' in data[j]]
+                if ma_window:
+                    ma_10 = sum(ma_window) / len(ma_window)
+                    new_row['MA_10'] = ma_10
+                else:
+                    new_row['MA_10'] = float(row['close'])
             else:
                 new_row['MA_10'] = float(row['close'])
             
             if i >= 49:
-                ma_50 = sum(float(data[j]['close']) for j in range(i-49, i+1)) / 50
-                new_row['MA_50'] = ma_50
+                # Calculate 50-period moving average with proper data validation
+                ma_window = [float(data[j]['close']) for j in range(i-49, i+1) if 'close' in data[j]]
+                if ma_window:
+                    ma_50 = sum(ma_window) / len(ma_window)
+                    new_row['MA_50'] = ma_50
+                else:
+                    new_row['MA_50'] = float(row['close'])
             else:
                 new_row['MA_50'] = float(row['close'])
             

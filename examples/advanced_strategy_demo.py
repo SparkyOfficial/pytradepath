@@ -23,7 +23,7 @@ from core.engine import BacktestingEngine
 from core.risk import RiskManager, NaiveRiskManager, PositionSizer, KellyCriterionPositionSizer
 from core.optimization import ParameterOptimizer
 from core.data import CSVDataProvider, DataManager, DataValidator
-from core.ml import SimpleLinearRegression, FeatureEngineer
+from core.ml import EnhancedLinearRegression, FeatureEngineer
 from core.analytics import StatisticalAnalyzer, RiskAnalyzer
 from core.utilities import CacheManager, Timer
 from utils.performance import calculate_sharpe_ratio, calculate_max_drawdown, calculate_cagr, calculate_sortino_ratio
@@ -331,7 +331,7 @@ def demonstrate_machine_learning():
     X, y = feature_engineer.prepare_data_for_training(features_data, 'returns', 5)
     
     # Create and train model
-    model = SimpleLinearRegression("DemoModel")
+    model = EnhancedLinearRegression("DemoModel", regularization=0.01)
     if X and y:
         model.train(X[:80], y[:80])  # Use first 80 for training
         print("ML model trained successfully")

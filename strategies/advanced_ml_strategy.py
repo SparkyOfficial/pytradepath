@@ -1,6 +1,6 @@
 from core.event import SignalEvent
 from core.strategy import Strategy
-from core.ml import SimpleLinearRegression, FeatureEngineer
+from core.ml import EnhancedLinearRegression, FeatureEngineer
 from core.risk import PositionSizer, KellyCriterionPositionSizer
 from typing import List, Dict
 import math
@@ -35,7 +35,7 @@ class AdvancedMLStrategy(Strategy):
         
         # Initialize ML components
         if self.use_ml:
-            self.ml_model = SimpleLinearRegression("AdvancedML")
+            self.ml_model = EnhancedLinearRegression("AdvancedML", regularization=0.01)
             self.feature_engineer = FeatureEngineer()
             self.is_model_trained = False
         
@@ -311,7 +311,8 @@ class AdvancedMLStrategy(Strategy):
                     # Generate signal event
                     if signal_type:
                         signal = SignalEvent(symbol, signal_type, signal_strength)
-                        self.events_queue.put(signal)
+                        if self.events_queue is not None:
+                            self.events_queue.put(signal)
                         
                         # Update position tracking
                         if signal_type == 'BUY':
