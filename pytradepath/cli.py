@@ -167,19 +167,43 @@ class {name}Strategy(Strategy):
         symbols - List of ticker symbols to trade
         """
         super().__init__(symbols)
-        # TODO: Initialize strategy parameters
+        # Initialize strategy parameters
+        self.short_window = 50
+        self.long_window = 200
+        self.bought = self._calculate_initial_bought()
 
     def calculate_signals(self, event):
         """
-        Generate trading signals.
+        Generate trading signals based on moving average crossover strategy.
         """
         if event.type.name == 'MARKET':
             for symbol in self.symbols:
-                # TODO: Implement your strategy logic here
-                # Example:
-                # signal = SignalEvent(symbol, 'BUY', 1.0)
-                # self.events_queue.put(signal)
-                pass
+                # Implement moving average crossover logic
+                # This is a basic example - you should replace with your own logic
+                
+                # Get latest market data (this would typically come from a data handler)
+                # For demonstration, we'll use placeholder values
+                short_ma = 100.0  # Replace with actual short moving average calculation
+                long_ma = 99.5    # Replace with actual long moving average calculation
+                
+                # Generate signals based on moving average crossover
+                if short_ma > long_ma and not self.bought.get(symbol, False):
+                    # Buy signal
+                    signal = SignalEvent(symbol, 'BUY', 1.0)
+                    self.events_queue.put(signal)
+                    self.bought[symbol] = True
+                elif short_ma < long_ma and self.bought.get(symbol, False):
+                    # Sell signal
+                    signal = SignalEvent(symbol, 'SELL', 1.0)
+                    self.events_queue.put(signal)
+                    self.bought[symbol] = False
+                
+                # Note: In a real implementation, you would:
+                # 1. Access actual market data through a data handler
+                # 2. Calculate actual moving averages from historical data
+                # 3. Implement proper risk management
+                # 4. Consider position sizing and portfolio constraints
+                # 5. Add additional filters and confirmation signals
 '''
     
     try:
