@@ -40,12 +40,17 @@ optional = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/pytradepath"
-Repository = "https://github.com/yourusername/pytradepath"
-Documentation = "https://github.com/yourusername/pytradepath/blob/main/README.md"
+Homepage = "https://github.com/SparkyOfficial/pytradepath"
+Repository = "https://github.com/SparkyOfficial/pytradepath"
+Documentation = "https://github.com/SparkyOfficial/pytradepath/blob/main/README.md"
 
 [project.scripts]
 pytradepath = "pytradepath.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pytradepath", "pytradepath.*", "core", "core.*", "strategies", "strategies.*", "utils", "utils.*", "tests", "tests.*"]
+exclude = ["data*", "docs*", "examples*", "logs*", "cache*", "temp*", "tmp*", "exported_data*"]
 
 [tool.setuptools_scm]
 version_scheme = "guess-next-dev"
