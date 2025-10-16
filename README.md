@@ -19,6 +19,11 @@ PyTradePath is a comprehensive, event-driven framework for backtesting and algor
 
 ## Installation
 
+### From PyPI (Recommended)
+```bash
+pip install pytradepath
+```
+
 ### From Release Package
 1. Download the `pytradepath-release.zip` file from the latest release
 2. Extract it to your desired location
@@ -161,6 +166,25 @@ make_release.bat
 # Using Python directly
 python release.py --package-only
 ```
+
+## Automated Publishing
+
+This repository uses GitHub Actions for automated building and publishing:
+
+- **[Test Build](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/.github/workflows/test-build.yml)**: Runs on every push/PR to test building the package
+- **[Create Release](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/.github/workflows/release.yml)**: Creates GitHub releases when tags are pushed
+- **[Publish to PyPI](file:///C:/Users/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD/Desktop/pytradepath/.github/workflows/publish.yml)**: Publishes to PyPI using OIDC authentication
+
+To create a new release:
+```bash
+git tag -a v1.0.0 -m "Release version 1.0.0"
+git push origin v1.0.0
+```
+
+The GitHub Actions workflows will automatically:
+1. Build the package
+2. Create a GitHub release
+3. Publish to PyPI using secure OIDC authentication
 
 ## Testing
 
